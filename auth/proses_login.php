@@ -1,10 +1,15 @@
 <?php
 session_start();
 
+
+
+
 $conn = mysqli_connect("localhost", "root", "", "ecommerce_db");
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
+
+
 
 if (isset($_POST['login'])) {
     $email    = mysqli_real_escape_string($conn, $_POST['email']);
@@ -26,3 +31,7 @@ if (isset($_POST['login'])) {
     }
 }
 
+$_SESSION ['user'] = $userdata;
+session_regenerate_id(true);
+header("Location: ../user.php");
+exit;

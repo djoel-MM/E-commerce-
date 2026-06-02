@@ -1,14 +1,20 @@
 <?php
+session_start();
+
 $conn = mysqli_connect("localhost", "root", "", "ecommerce_db");
 if (!$conn) {
   die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-$result = mysqli_query($conn, "SELECT * FROM users");
-session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: auth/login.php");
+    exit();
 }
+
+$result = mysqli_query($conn, "SELECT * FROM users");
+
+
+
 
 ?>
 
@@ -71,12 +77,12 @@ if (!isset($_SESSION['user'])) {
                     <div class="flex justify-between items-center">
                         <div>
                             <p class="text-gray-600 text-sm">Member sejak</p>
-                            <h3 class="text-xl font-bold text-gray-800 mt-2"><?= date('d M Y', strtotime($_SESSION['user']['created_at'])) ?></h3>
+                            <h3 class="text-xl font-bold text-gray-800 mt-2"><?= date ("d M Y",  ($_SESSION['user']['created_at'])) ?></h3>
                         </div>
                         <i class="fas fa-calendar-check text-4xl text-green-500"></i>
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-gray-500 text-sm"><?= floor((time() - strtotime($_SESSION['user']['created_at'])) / (60*60*24)) ?> hari</p>
+                        <p class="text-gray-500 text-sm"><?= floor ((time() - strtotime($_SESSION['user']['created_at'])) / (60*60*24)) ?> hari</p>
                     </div>
                 </div>
             </div>

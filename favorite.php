@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $conn = mysqli_connect("localhost", "root", "", "ecommerce_db");
 
 if(!isset($_SESSION['user'])) {
